@@ -31,52 +31,57 @@ async function loadData() {
     }
 }
 
-// تابع برای نمایش داده‌ها در جدول با فیلتر ردیف‌های خالی
+// تابع برای نمایش داده‌ها با ساختار مرج
 function displayData(data) {
     const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
 
-    let rowCount = 0;
-
-    // از ردیف ۱ شروع می‌کنیم (ردیف ۰ هدر است)
-    for (let i = 1; i < data.length; i++) {
+    // از ردیف ۴ شروع می‌کنیم (ردیف‌های ۰,۱,۲ هدر هستند)
+    for (let i = 3; i < data.length; i++) {
         const row = data[i];
         
-        // 🔥 فیلتر ردیف‌های خالی: اگر ستون B (ایندکس 1) خالی بود، این ردیف رو نمایش نده
+        // فیلتر ردیف‌های خالی
         if (!row[1] || row[1].trim() === '') {
-            continue; // این ردیف رو نادیده بگیر
+            continue;
         }
         
         const tr = document.createElement('tr');
         
         // شماره ردیف
         const tdNumber = document.createElement('td');
-        tdNumber.textContent = ++rowCount;
+        tdNumber.textContent = i - 2;
         tr.appendChild(tdNumber);
         
-        // بقیه سلول‌ها
-        for (let j = 1; j < 8; j++) {
+        // نام سلاح
+        const tdName = document.createElement('td');
+        tdName.textContent = row[1] || '';
+        tdName.style.textAlign = 'right';
+        tr.appendChild(tdName);
+        
+        // داده‌های چەک (ستون‌های ۲,۳,۴)
+        for (let j = 2; j <= 4; j++) {
             const td = document.createElement('td');
-            // اگر داده نداره، 0 نمایش بده
-            td.textContent = row[j] || (j >= 2 ? '0' : '');
+            td.textContent = row[j] || '0';
+            td.style.textAlign = 'center';
+            tr.appendChild(td);
+        }
+        
+        // داده‌های تەقەمەنى (ستون‌های ۵,۶,۷)
+        for (let j = 5; j <= 7; j++) {
+            const td = document.createElement('td');
+            td.textContent = row[j] || '0';
+            td.style.textAlign = 'center';
             tr.appendChild(td);
         }
         
         tbody.appendChild(tr);
     }
-    
-    if (rowCount === 0) {
-        tbody.innerHTML = '<tr><td colspan="8">هیچ داتایەک نەدۆزرایەوە</td></tr>';
-    }
-    
-    console.log(`تعداد ردیف‌های نمایش داده شده: ${rowCount}`);
 }
 
 // تابع برای صفحه ادمین
 function openAdmin() {
     const password = prompt('پاسورڈی ئەدمین بنووسە:');
     if (password === '123456') {
-        // باز کردن گوگل شیتس برای ادیت
         window.open('https://docs.google.com/spreadsheets/d/1H1ljoMWTghShk02mBBGXaNp4VYXhTGT98EnNlqWBd6A/edit', '_blank');
         alert('ئەدمین: دەتوانیت لە گووگل شیتس داتاکان بگۆڕیت. دوای گۆڕین، لاپەڕەکە نوێبکەرەوە.');
     } else {

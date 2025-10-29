@@ -453,3 +453,38 @@ button:hover {
 .edit-panel.active {
     display: block;
 }
+/* فریز کردن هدر جدول */
+.table-container {
+    overflow-x: auto;
+    max-height: 70vh;
+    position: relative;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--military-medium) !important;
+    color: white;
+    border: 1px solid var(--military-dark) !important;
+}
+
+/* برای هدرهای ردیف دوم */
+thead tr:nth-child(2) th {
+    top: 48px; /* ارتفاع ردیف اول */
+}
+
+/* استایل مخصوص تب ادیت */
+#edit-tab .table-container {
+    max-height: 60vh;
+}
+
+#edit-tab table {
+    min-width: 1000px; /* کمی بزرگتر برای ستون ادیت */
+}

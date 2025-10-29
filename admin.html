@@ -1,1 +1,52 @@
-
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ئەدمین - ئامارى چەک و تەقەمەنى</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ئەدمین - ئامارى چەک و تەقەمەنى</h1>
+            <button onclick="goBack()">گەڕانەوە بۆ نمایش</button>
+        </header>
+        
+        <div class="admin-panel">
+            <p>ئەم پانێڵە بۆ نوێکردنەوەی داتا کاردەکات. بۆ نوێکردنەوە، دەبێت لە گووگل شیتس داتاکان بنووسیتەوە.</p>
+            <button onclick="location.reload()">نوێکردنەوەی داتا</button>
+        </div>
+        
+        <div class="table-container">
+            <table id="ammoTable">
+                <thead>
+                    <tr>
+                        <th>ز</th>
+                        <th>جۆرى چەک و تەقەمەنى</th>
+                        <th>مشجەب</th>
+                        <th>میحوەر و یەکە</th>
+                        <th>گشتى</th>
+                        <th>مشجەب</th>
+                        <th>میحوەر و یەکە</th>
+                        <th>گشتى</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- داده ها اینجا لود میشن -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+        
+        // وقتی صفحه ادمین لود شد
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

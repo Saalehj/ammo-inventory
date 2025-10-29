@@ -227,3 +227,42 @@ function saveRow(button) {
     row.classList.add('editing-row');
     setTimeout(() => row.classList.remove('editing-row'), 2000);
 }
+
+// این رو با URL خودت جایگزین کن
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoNGiIrLtLmciZ6_cHf0GcnIT3LXbv72rVm5aRovuyRbeqQ06a1wxakCzyE3axCHSQ/exec';
+
+// تابع ساده برای ذخیره
+async function saveRow(button) {
+    const row = button.closest('tr');
+    const inputs = row.querySelectorAll('input[type="number"]');
+    
+    button.innerHTML = '⌛...';
+    button.disabled = true;
+    
+    try {
+        for (let input of inputs) {
+            const row = parseInt(input.dataset.row) + 1; // +1 چون در شیتس از ۱ شروع میشه
+            const col = parseInt(input.dataset.col) + 1;
+            const value = input.value;
+            
+            // ارسال به گوگل
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({row: row, col: col, value: value})
+            });
+        }
+        
+        button.innerHTML = '✅ شد';
+        setTimeout(() => {
+            button.innerHTML = 'تۆمار';
+            button.disabled = false;
+        }, 2000);
+        
+    } catch (error) {
+        button.innerHTML = '❌ خطا';
+        setTimeout(() => {
+            button.innerHTML = 'تۆمار';
+            button.disabled = false;
+        }, 2000);
+    }
+}

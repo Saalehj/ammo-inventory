@@ -323,3 +323,133 @@ th[colspan="3"] {
     background: #fff3cd !important;
     border: 2px solid #ffc107;
 }
+/* تم نظامی - خاکی و سبز */
+:root {
+    --military-dark: #2d4a2d;
+    --military-medium: #556b2f;
+    --military-light: #6b8e23;
+    --military-sand: #c2b280;
+    --military-khaki: #f0e68c;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #556b2f 0%, #2d4a2d 100%);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+header {
+    background: linear-gradient(135deg, var(--military-dark), var(--military-medium));
+    color: white;
+    padding: 25px;
+    text-align: center;
+    border-bottom: 3px solid var(--military-sand);
+}
+
+/* تب‌های نظامی */
+.nav-tabs {
+    display: flex;
+    background: var(--military-medium);
+    padding: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.nav-tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    background: var(--military-medium);
+    color: var(--military-khaki);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 600;
+    border-right: 1px solid var(--military-dark);
+}
+
+.nav-tab:last-child {
+    border-right: none;
+}
+
+.nav-tab.active {
+    background: var(--military-dark);
+    color: white;
+}
+
+.nav-tab:hover {
+    background: var(--military-light);
+    color: white;
+}
+
+/* هدر فریز شده درست */
+.table-container {
+    overflow-x: auto;
+    max-height: 70vh;
+    position: relative;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    background: white;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--military-medium) !important;
+    color: white;
+    border: 1px solid var(--military-dark) !important;
+}
+
+/* بوردر بین بخش‌ها */
+th[colspan="3"] {
+    border-right: 2px solid var(--military-sand) !important;
+}
+
+/* استایل برای دکمه‌ها */
+button {
+    background: linear-gradient(135deg, var(--military-medium), var(--military-dark));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, var(--military-light), var(--military-medium));
+    transform: translateY(-1px);
+}
+
+/* پنل ادیت */
+.edit-panel {
+    display: none;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.edit-panel.active {
+    display: block;
+}

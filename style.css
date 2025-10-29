@@ -488,3 +488,40 @@ thead tr:nth-child(2) th {
 #edit-tab table {
     min-width: 1000px; /* کمی بزرگتر برای ستون ادیت */
 }
+/* استایل برای دکمه‌های وضعیت */
+.btn-success {
+    background: #27ae60 !important;
+}
+
+.btn-danger {
+    background: #e74c3c !important;
+}
+
+.btn-success:hover {
+    background: #219a52 !important;
+}
+
+.btn-danger:hover {
+    background: #c0392b !important;
+}
+
+/* هایلایت ردیف در حال ادیت */
+.editing-row {
+    background: #f0f8ff !important;
+    border-left: 3px solid #3498db !important;
+}
+
+/* inputهای کوچک‌تر */
+input[type="number"] {
+    width: 60px;
+    padding: 4px;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+    text-align: center;
+}
+
+input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}

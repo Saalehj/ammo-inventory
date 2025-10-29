@@ -179,7 +179,8 @@ async function loadEditData() {
     }
 }
 
-// نمایش داده در جدول ادیت
+
+// نمایش داده در جدول ادیت - نسخه بهینه‌شده
 function displayEditData(data) {
     const tbody = document.getElementById('editTableBody');
     tbody.innerHTML = '';
@@ -191,15 +192,16 @@ function displayEditData(data) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${i-2}</td>
-            <td>${row[1] || ''}</td>
-            <td><input type="number" value="${row[2] || 0}" data-row="${i}" data-col="2"></td>
-            <td><input type="number" value="${row[3] || 0}" data-row="${i}" data-col="3"></td>
-            <td><input type="number" value="${row[4] || 0}" data-row="${i}" data-col="4"></td>
-            <td><input type="number" value="${row[5] || 0}" data-row="${i}" data-col="5"></td>
-            <td><input type="number" value="${row[6] || 0}" data-row="${i}" data-col="6"></td>
-            <td><input type="number" value="${row[7] || 0}" data-row="${i}" data-col="7"></td>
-            <td>
-                <button class="btn btn-primary" onclick="saveRow(this)">پاشەکەوت</button>
+            <td style="min-width: 200px; text-align: right;">${row[1] || ''}</td>
+            <td><input type="number" value="${row[2] || 0}" data-row="${i}" data-col="2" style="width: 60px; padding: 4px;"></td>
+            <td><input type="number" value="${row[3] || 0}" data-row="${i}" data-col="3" style="width: 60px; padding: 4px;"></td>
+            <td><input type="number" value="${row[4] || 0}" data-row="${i}" data-col="4" style="width: 60px; padding: 4px;"></td>
+            <td><input type="number" value="${row[5] || 0}" data-row="${i}" data-col="5" style="width: 80px; padding: 4px;"></td>
+            <td><input type="number" value="${row[6] || 0}" data-row="${i}" data-col="6" style="width: 80px; padding: 4px;"></td>
+            <td><input type="number" value="${row[7] || 0}" data-row="${i}" data-col="7" style="width: 80px; padding: 4px;"></td>
+            <td style="min-width: 120px;">
+                <button class="btn btn-primary" onclick="saveRow(this)" style="padding: 6px 12px; font-size: 12px;">تۆمار</button>
+                <button class="btn btn-secondary" onclick="cancelEdit(this)" style="padding: 6px 12px; font-size: 12px;">هەڵوەشاندن</button>
             </td>
         `;
         tbody.appendChild(tr);

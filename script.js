@@ -8,17 +8,29 @@ const CONFIG = {
 // تابع برای لود داده‌ها
 async function loadData() {
     try {
+        console.log('شروع لود داده...');
+        
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values/${CONFIG.SHEET_NAME}?key=${CONFIG.API_KEY}`;
+        console.log('URL:', url);
         
         const response = await fetch(url);
-        const data = await response.json();
+        console.log('Response status:', response.status);
         
-        if (data.values) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Data received:', data);
+        
+        if (data.values && data.values.length > 0) {
             displayData(data.values);
+        } else {
+            document.getElementById('tableBody').innerHTML = '<tr><td colspan="8">داتای بوونی نیە</td></tr>';
         }
     } catch (error) {
-        console.error('خطا در لود داده:', error);
-        document.getElementById('tableBody').innerHTML = '<tr><td colspan="8">هەڵە لە بارکردنی داتا</td></tr>';
+        console.error('هەڵە لە بارکردنی داتا:', error);
+        document.getElementById('tableBody').innerHTML = `<tr><td colspan="8">هەڵە: ${error.message}</td></tr>`;
     }
 }
 
@@ -41,12 +53,14 @@ function displayData(data) {
         
         tbody.appendChild(tr);
     }
+    
+    console.log('داده‌ها نمایش داده شدند');
 }
 
 // تابع برای صفحه ادمین
 function openAdmin() {
     const password = prompt('پاسورڈی ئەدمین بنووسە:');
-    if (password === '123456') { // بعداً تغییر می‌دهیم
+    if (password === '123456') {
         window.location.href = 'admin.html';
     } else {
         alert('پاسورێد هەڵەیه!');
@@ -54,4 +68,7 @@ function openAdmin() {
 }
 
 // وقتی صفحه لود شد
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('صفحه لود شد');
+    loadData();
+});

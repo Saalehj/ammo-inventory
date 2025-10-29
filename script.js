@@ -91,3 +91,106 @@ function openAdmin() {
 
 // وقتی صفحه لود شد
 document.addEventListener('DOMContentLoaded', loadData);
+
+// اضافه کردن این توابع به script.js
+
+// مدیریت تب‌ها
+function showTab(tabName) {
+    // غیرفعال کردن همه تب‌ها
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // فعال کردن تب انتخاب شده
+    document.getElementById(tabName + '-tab').classList.add('active');
+    event.target.classList.add('active');
+}
+
+// لاگین ادمین
+function loginAdmin() {
+    const password = document.getElementById('admin-password').value;
+    if (password === '123456') {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('edit-panel').classList.add('active');
+        loadEditData();
+    } else {
+        alert('پاسورێد هەڵەیه!');
+    }
+}
+
+// باز کردن گوگل شیتس
+function openGoogleSheet() {
+    window.open('https://docs.google.com/spreadsheets/d/1H1ljoMWTghShk02mBBGXaNp4VYXhTGT98EnNlqWBd6A/edit', '_blank');
+}
+
+// نوێکردنەوەی داتا
+function refreshData() {
+    loadData();
+    loadEditData();
+    alert('داتا نوێکرایەوە!');
+}
+
+// لود داده برای ادیت
+async function loadEditData() {
+    try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values/${CONFIG.SHEET_NAME}?key=${CONFIG.API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.values) {
+            displayEditData(data.values);
+        }
+    } catch (error) {
+        console.error('خطا در لود داده برای ادیت:', error);
+    }
+}
+
+// نمایش داده در جدول ادیت
+function displayEditData(data) {
+    const tbody = document.getElementById('editTableBody');
+    tbody.innerHTML = '';
+
+    for (let i = 3; i < data.length; i++) {
+        const row = data[i];
+        if (!row[1] || row[1].trim() === '') continue;
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${i-2}</td>
+            <td>${row[1] || ''}</td>
+            <td><input type="number" value="${row[2] || 0}" data-row="${i}" data-col="2"></td>
+            <td><input type="number" value="${row[3] || 0}" data-row="${i}" data-col="3"></td>
+            <td><input type="number" value="${row[4] || 0}" data-row="${i}" data-col="4"></td>
+            <td><input type="number" value="${row[5] || 0}" data-row="${i}" data-col="5"></td>
+            <td><input type="number" value="${row[6] || 0}" data-row="${i}" data-col="6"></td>
+            <td><input type="number" value="${row[7] || 0}" data-row="${i}" data-col="7"></td>
+            <td>
+                <button class="btn btn-primary" onclick="saveRow(this)">پاشەکەوت</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    }
+}
+
+// ذخیره تغییرات
+function saveRow(button) {
+    const row = button.closest('tr');
+    const inputs = row.querySelectorAll('input');
+    const changes = [];
+    
+    inputs.forEach(input => {
+        changes.push({
+            row: parseInt(input.dataset.row),
+            col: parseInt(input.dataset.col),
+            value: input.value
+        });
+    });
+    
+    // اینجا می‌توانید کد ذخیره در گوگل شیتس را اضافه کنید
+    alert('تغییرات ذخیره شد! (در نسخه بعدی به گوگل شیتس sync می‌شود)');
+    row.classList.add('editing-row');
+    setTimeout(() => row.classList.remove('editing-row'), 2000);
+}

@@ -96,6 +96,8 @@ document.addEventListener('DOMContentLoaded', loadData);
 
 // مدیریت تب‌ها
 function showTab(tabName) {
+    console.log('Changing to tab:', tabName);
+    
     // غیرفعال کردن همه تب‌ها
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
@@ -105,21 +107,50 @@ function showTab(tabName) {
     });
     
     // فعال کردن تب انتخاب شده
-    document.getElementById(tabName + '-tab').classList.add('active');
-    event.target.classList.add('active');
+    const selectedTab = document.getElementById(tabName + '-tab');
+    const selectedNav = event.target;
+    
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+        selectedNav.classList.add('active');
+    }
 }
 
-// لاگین ادمین
 function loginAdmin() {
     const password = document.getElementById('admin-password').value;
+    console.log('Login attempt with password:', password);
+    
     if (password === '123456') {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('edit-panel').classList.add('active');
         loadEditData();
+        alert('بەخێربێیت ئەدمین!');
     } else {
         alert('پاسورێد هەڵەیه!');
     }
 }
+
+// اضافه کردن استایل برای تب‌ها
+const style = document.createElement('style');
+style.textContent = `
+    .tab-content {
+        display: none;
+        padding: 20px;
+    }
+    .tab-content.active {
+        display: block;
+    }
+`;
+document.head.appendChild(style);
+
+// وقتی صفحه لود شد
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded');
+    loadData();
+    
+    // مطمئن شویم تب نمایش فعال است
+    showTab('view');
+});
 
 // باز کردن گوگل شیتس
 function openGoogleSheet() {
